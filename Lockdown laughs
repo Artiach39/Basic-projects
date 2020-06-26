@@ -1,0 +1,62 @@
+import colorama
+from colorama import Fore, Style
+from random import randint
+joke_file = "_jokes.txt"
+#START PROJECT CODE FROM HERE 
+
+# Defining the functions
+
+def title():
+  print(Fore.YELLOW)
+  print("******************************")
+  print("WELCOME TO LOCKDOWN LAUGHS!")
+  print("******************************")
+  print(Fore.WHITE)
+  
+def read_jokes(joke_file): 
+  jokes= open (joke_file)
+  jokes_contents= jokes.read()
+  jokes_list=jokes_contents.split("\n")
+  return jokes_list
+
+def jokes_split(jokes_list):
+  knock_jokes_list= []
+  statement_jokes_list = []
+  required_joke_word = "Knock Knock"
+  for joke in jokes_list: 
+    if required_joke_word in joke:
+      knock_jokes_list.append(joke)
+    else:
+      statement_jokes_list.append(joke)
+  return knock_jokes_list, statement_jokes_list
+
+def is_knock_knock_joke ():
+  print ("Which joke would you like?")
+  type_joke= input( "Type 1 for Knock Knock joke, Type 2 for Statement: ")
+  type_joke = int(type_joke)
+  if type_joke == 1:
+    return True 
+  elif type_joke == 2: 
+   return False 
+  else:
+    print ("Invalid input")
+    return is_knock_knock_joke()
+
+def print_joke (knock_knock_jokes_list, statement_jokes_list, user_input): 
+  print(Fore.RED)
+  if user_input == True: 
+    chosen_num = randint (0, len(knock_knock_jokes_list)-1)
+    print (knock_knock_jokes_list [chosen_num])
+  elif user_input == False: 
+    chosen_num = randint (0, len(statement_jokes_list)-1)
+    print (statement_jokes_list [chosen_num])
+  print(Fore.WHITE)
+  print('\U0001F44d', "Remember to wash your hands!"'\U0001F44d')
+
+    
+#Calling the functions/ running the code
+start=title()
+jokes= read_jokes(joke_file)
+knock_knock_jokes_list, statement_jokes_list= jokes_split(jokes)
+user_input= is_knock_knock_joke()
+joke_finished= print_joke(knock_knock_jokes_list, statement_jokes_list, user_input)
